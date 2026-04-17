@@ -1,1186 +1,1393 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الريمونتادا</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-:root{
-    --pb:#5D4037;
-    --db:#3E2723;
-    --lb:#8D6E63;
-    --cr:#F5F5DC;
-    --lc:#FAF8F0;
-    --ag:#D4AF37;
-    --sg:#4CAF50;
-    --dr:#F44336;
-    --op:#9C27B0;
-    --ph:#2196F3;
-    --sp:#2E7D32;
-    --rev:#1565C0;
-    --rev-bg:#FFF3E0;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
-    font-family:'Tajawal',sans-serif;
-    background:linear-gradient(135deg,#FAF8F0 0%,#F5F5DC 100%);
-    min-height:100vh;
-    color:var(--db);
-    line-height:1.6;
-    padding-bottom:220px;
-}
-
-/* Animated Gradient Text */
-.main-title{
-    font-size:2.5rem;
-    font-weight:900;
-    background:linear-gradient(90deg, var(--cr), var(--ag), #FF6B6B, var(--cr));
-    background-size:300% 100%;
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    background-clip:text;
-    animation:gradientShift 4s ease infinite;
-    letter-spacing:2px;
-}
-
-@keyframes gradientShift{
-    0%,100%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-}
-
-/* Header */
-.header{
-    background:linear-gradient(135deg,var(--pb) 0%,var(--db) 100%);
-    padding:2rem 1rem;
-    text-align:center;
-    box-shadow:0 4px 20px rgba(0,0,0,0.15);
-}
-
-.subtitle{
-    font-size:1rem;
-    color:var(--cr);
-    opacity:.9;
-    font-style:italic;
-}
-
-/* Stats */
-.stats-bar{
-    display:flex;
-    justify-content:center;
-    gap:1rem;
-    flex-wrap:wrap;
-    margin-top:1rem;
-}
-
-.stat-pill{
-    background:rgba(255,255,255,.2);
-    padding:.5rem 1rem;
-    border-radius:20px;
-    color:white;
-    font-size:.8rem;
-    font-weight:700;
-}
-
-/* Week Nav */
-.week-nav{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:1rem;
-    padding:1.5rem;
-    background:var(--lc);
-    border-bottom:3px solid var(--pb);
-}
-
-.week-btn{
-    background:var(--pb);
-    color:white;
-    border:none;
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:1.2rem;
-    transition:all .3s;
-}
-
-.week-btn:hover{
-    background:var(--db);
-    transform:scale(1.15) rotate(5deg);
-}
-
-.week-title{
-    font-size:1.1rem;
-    font-weight:800;
-    color:var(--pb);
-    min-width:280px;
-    text-align:center;
-}
-
-/* Container */
-.container{
-    max-width:900px;
-    margin:0 auto;
-    padding:1rem;
-}
-
-/* Cards */
-.progress-section,
-.schedule-card,
-.day-task,
-.day-counter-section{
-    background:white;
-    border-radius:20px;
-    padding:1.5rem;
-    margin:1rem 0;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
-}
-
-/* Animated Progress Bar */
-.progress-bar{
-    height:24px;
-    background:#eee;
-    border-radius:12px;
-    overflow:hidden;
-    position:relative;
-}
-
-.progress-fill{
-    height:100%;
-    background:linear-gradient(90deg,var(--sg),var(--ag));
-    border-radius:12px;
-    transition:width .5s ease;
-    display:flex;
-    align-items:center;
-    justify-content:flex-end;
-    padding-right:12px;
-    color:white;
-    font-weight:700;
-    position:relative;
-    overflow:hidden;
-}
-
-/* Shimmer Effect */
-.progress-fill::before{
-    content:'';
-    position:absolute;
-    top:0;
-    left:-100%;
-    width:100%;
-    height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);
-    animation:shimmer 2s infinite;
-}
-
-@keyframes shimmer{
-    0%{left:-100%;}
-    100%{left:100%;}
-}
-
-/* Glowing Dot */
-.progress-fill::after{
-    content:'';
-    position:absolute;
-    right:4px;
-    top:50%;
-    transform:translateY(-50%);
-    width:8px;
-    height:8px;
-    background:white;
-    border-radius:50%;
-    box-shadow:0 0 10px 2px rgba(255,255,255,0.9);
-    animation:pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse{
-    0%,100%{opacity:1;transform:translateY(-50%) scale(1);}
-    50%{opacity:0.7;transform:translateY(-50%) scale(1.3);}
-}
-
-/* Schedule Table with rounded corners */
-.schedule-header{
-    background:var(--db);
-    color:var(--cr);
-    padding:1rem;
-    text-align:center;
-    font-weight:700;
-    border-radius:20px 20px 0 0;
-}
-
-.schedule-table{
-    width:100%;
-    border-collapse:separate;
-    border-spacing:0;
-}
-
-.schedule-table th{
-    background:var(--pb);
-    color:white;
-    padding:.8rem;
-    font-size:.8rem;
-}
-
-.schedule-table td{
-    padding:.8rem;
-    text-align:center;
-    border-bottom:1px solid #eee;
-    font-size:.85rem;
-}
-
-/* Rounded corners for table rows */
-.schedule-table tbody tr:last-child td:first-child{
-    border-radius:0 0 20px 0;
-}
-
-.schedule-table tbody tr:last-child td:last-child{
-    border-radius:0 0 0 20px;
-}
-
-.subject-chem{color:var(--sg);font-weight:700;background:rgba(76,175,80,.1);padding:.2rem .5rem;border-radius:8px;}
-.subject-phys{color:var(--ph);font-weight:700;background:rgba(33,150,243,.1);padding:.2rem .5rem;border-radius:8px;}
-
-/* Day Task */
-.day-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    cursor:pointer;
-    padding:.5rem;
-    background:var(--lc);
-    border-radius:12px;
-    transition:all .3s;
-}
-
-.day-header:hover{
-    background:#e8e4d9;
-    transform:translateY(-2px);
-}
-
-.day-label{
-    font-weight:800;
-    color:var(--pb);
-    font-size:1.1rem;
-}
-
-/* Task Grid */
-.task-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:.8rem;
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .5s ease;
-    padding:0 .5rem;
-}
-
-@media(min-width:600px){
-    .task-grid{grid-template-columns:repeat(3,1fr);}
-}
-
-.task-grid.expanded{
-    max-height:1200px;
-    padding-top:1rem;
-}
-
-/* Task Item with Ripple */
-.task-item{
-    background:var(--lc);
-    border-radius:15px;
-    padding:1.2rem 1rem;
-    border:2px solid transparent;
-    cursor:pointer;
-    text-align:center;
-    transition:all .3s;
-    position:relative;
-    overflow:hidden;
-}
-
-.task-item::before{
-    content:'';
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:0;
-    height:0;
-    background:radial-gradient(circle,rgba(212,175,55,0.5) 0%,transparent 70%);
-    border-radius:50%;
-    transform:translate(-50%,-50%);
-    transition:width .6s,height .6s;
-}
-
-.task-item:active::before{
-    width:200%;
-    height:200%;
-}
-
-.task-item:hover{
-    border-color:var(--pb);
-    transform:translateY(-3px);
-    box-shadow:0 8px 25px rgba(0,0,0,0.15);
-}
-
-/* Completed Task with Bounce */
-.task-item.completed{
-    background:#E8F5E9;
-    border-color:var(--sg);
-    animation:completeBounce 0.5s ease;
-}
-
-@keyframes completeBounce{
-    0%{transform:scale(1);}
-    50%{transform:scale(0.95);}
-    70%{transform:scale(1.02);}
-    100%{transform:scale(1);}
-}
-
-.task-item.review-additional{
-    background:#FFF3E0;
-    border-color:#FF9800;
-}
-
-.task-item.review-additional.completed{
-    background:#FFE0B2;
-}
-
-/* Checkbox with Animation */
-.checkbox{
-    width:24px;
-    height:24px;
-    border:2px solid var(--pb);
-    border-radius:6px;
-    margin:0 auto .7rem;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:.8rem;
-    transition:all .3s;
-}
-
-.task-item.completed .checkbox{
-    background:var(--sg);
-    border-color:var(--sg);
-    color:white;
-    animation:checkPop 0.4s ease;
-}
-
-@keyframes checkPop{
-    0%{transform:scale(1) rotate(0deg);}
-    50%{transform:scale(1.2) rotate(180deg);}
-    100%{transform:scale(1) rotate(360deg);}
-}
-
-.task-item.review-additional .checkbox{border-color:#FF9800;}
-.task-item.review-additional.completed .checkbox{background:#FF9800;border-color:#FF9800;color:white;}
-
-.task-icon{
-    font-size:1.3rem;
-    margin-bottom:.4rem;
-    color:var(--pb);
-    transition:all .3s;
-}
-
-.task-item.completed .task-icon{
-    color:var(--sg);
-    animation:iconPulse 0.5s ease;
-}
-
-@keyframes iconPulse{
-    0%,100%{transform:scale(1);}
-    50%{transform:scale(1.2);}
-}
-
-.task-item.review-additional .task-icon{color:#E65100;}
-
-.task-label{
-    font-size:.75rem;
-    font-weight:600;
-    color:var(--db);
-}
-
-.toggle-icon{
-    transition:transform .3s;
-    color:var(--pb);
-    font-size:1.1rem;
-}
-
-.toggle-icon.rotated{transform:rotate(180deg);}
-
-.chapter-complete{
-    background:linear-gradient(135deg,var(--ag),#FF6B6B);
-    color:white;
-    padding:.8rem;
-    border-radius:12px;
-    text-align:center;
-    font-weight:700;
-    margin-top:1rem;
-    animation:fadeIn 0.5s ease;
-}
-
-@keyframes fadeIn{
-    from{opacity:0;transform:translateY(-10px);}
-    to{opacity:1;transform:translateY(0);}
-}
-
-/* Toast */
-.toast{
-    position:fixed;
-    bottom:200px;
-    left:50%;
-    transform:translateX(-50%) translateY(100px);
-    background:var(--db);
-    color:white;
-    padding:1rem 2rem;
-    border-radius:25px;
-    font-weight:700;
-    opacity:0;
-    transition:all .3s;
-    z-index:1000;
-}
-
-.toast.show{
-    transform:translateX(-50%) translateY(0);
-    opacity:1;
-}
-
-/* Motivational Banner */
-.motivation-banner{
-    background:linear-gradient(135deg,var(--ag),#FF6B6B);
-    color:white;
-    padding:1.2rem;
-    border-radius:20px;
-    text-align:center;
-    margin:1rem 0;
-    font-weight:700;
-    font-size:1.1rem;
-    animation:slideDown 0.5s ease;
-}
-
-@keyframes slideDown{
-    from{transform:translateY(-20px);opacity:0;}
-    to{transform:translateY(0);opacity:1;}
-}
-
-/* Day Counter */
-.day-counter-title{
-    font-weight:700;
-    color:var(--pb);
-    margin-bottom:.8rem;
-    font-size:1.1rem;
-}
-
-.day-counter{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:1rem;
-    flex-wrap:wrap;
-}
-
-.counter-box{
-    background:linear-gradient(135deg,var(--pb),var(--db));
-    color:white;
-    padding:1.2rem 2rem;
-    border-radius:20px;
-    cursor:pointer;
-    transition:all .3s;
-    min-width:150px;
-}
-
-.counter-box:hover{
-    transform:scale(1.08);
-    box-shadow:0 4px 15px rgba(0,0,0,0.2);
-}
-
-.counter-number{
-    font-size:2.2rem;
-    font-weight:900;
-}
-
-.counter-label{
-    font-size:.85rem;
-    opacity:.9;
-}
-
-.counter-btn{
-    background:linear-gradient(135deg,var(--ag),#FF6B6B);
-    color:white;
-    border:none;
-    padding:1rem 2rem;
-    border-radius:15px;
-    font-weight:700;
-    cursor:pointer;
-    transition:all .3s;
-}
-
-.counter-btn:hover{
-    transform:scale(1.05) translateY(-3px);
-    box-shadow:0 10px 30px rgba(255,107,107,0.4);
-}
-
-/* Celebration Modal */
-.celebration-modal{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.8);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:2000;
-}
-
-.celebration-modal.show{display:flex;}
-
-.celebration-content{
-    background:linear-gradient(135deg,var(--ag),#FF6B6B);
-    padding:2.5rem;
-    border-radius:30px;
-    text-align:center;
-    color:white;
-    max-width:90%;
-    animation:bounceIn 0.5s ease;
-}
-
-@keyframes bounceIn{
-    0%{transform:scale(0);}
-    50%{transform:scale(1.1);}
-    100%{transform:scale(1);}
-}
-
-.celebration-icon{
-    font-size:4.5rem;
-    margin-bottom:1rem;
-    animation:iconFloat 2s ease-in-out infinite;
-}
-
-@keyframes iconFloat{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-}
-
-.celebration-title{
-    font-size:1.6rem;
-    font-weight:900;
-    margin-bottom:.5rem;
-}
-
-.celebration-text{
-    font-size:1.1rem;
-    margin-bottom:1.5rem;
-}
-
-.celebration-btn{
-    background:white;
-    color:var(--db);
-    border:none;
-    padding:1rem 2.5rem;
-    border-radius:25px;
-    font-weight:700;
-    cursor:pointer;
-    transition:all .3s;
-}
-
-.celebration-btn:hover{
-    transform:scale(1.05);
-    box-shadow:0 10px 30px rgba(255,255,255,0.3);
-}
-
-/* Bottom Bar */
-.bottom-bar{
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    background:white;
-    padding:1.2rem;
-    box-shadow:0 -4px 20px rgba(0,0,0,0.1);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:1rem;
-    z-index:100;
-}
-
-@media(max-width:600px){
-    .bottom-bar{flex-direction:column;gap:.8rem;padding:1rem;}
-}
-
-/* Niya Section */
-.niya-section{
-    background:linear-gradient(135deg,var(--sp),#1B5E20);
-    border-radius:20px;
-    padding:1.2rem;
-    color:white;
-    min-width:220px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:.6rem;
-}
-
-.niya-title{
-    font-weight:800;
-    font-size:.95rem;
-    display:flex;
-    align-items:center;
-    gap:.5rem;
-}
-
-.niya-quote{
-    font-size:.8rem;
-    font-style:italic;
-    opacity:.9;
-    text-align:center;
-    margin:.3rem 0;
-}
-
-.niya-counter{
-    background:rgba(255,255,255,.2);
-    padding:.4rem 1rem;
-    border-radius:25px;
-    font-size:1.4rem;
-    font-weight:900;
-    min-width:70px;
-    text-align:center;
-}
-
-.niya-btn{
-    background:linear-gradient(135deg,#FFD700,#FFA000);
-    color:var(--db);
-    border:none;
-    padding:.6rem 1.2rem;
-    border-radius:12px;
-    font-weight:700;
-    font-size:.85rem;
-    cursor:pointer;
-    transition:all .3s;
-    display:flex;
-    align-items:center;
-    gap:.5rem;
-}
-
-.niya-btn:hover{
-    transform:scale(1.08) translateY(-2px);
-    box-shadow:0 8px 25px rgba(255,215,0,0.4);
-}
-
-/* Proud Section */
-.proud-section{
-    background:linear-gradient(135deg,var(--pb),var(--db));
-    border-radius:20px;
-    padding:1.2rem;
-    color:var(--cr);
-    flex:1;
-    max-width:400px;
-}
-
-.proud-title{
-    font-weight:800;
-    font-size:.95rem;
-    margin-bottom:.8rem;
-    display:flex;
-    align-items:center;
-    gap:.5rem;
-}
-
-.proud-input{
-    width:100%;
-    background:rgba(255,255,255,.1);
-    border:2px solid rgba(255,255,255,.2);
-    border-radius:12px;
-    padding:.8rem;
-    color:white;
-    font-family:inherit;
-    font-size:.85rem;
-    resize:none;
-    min-height:70px;
-    transition:all .3s;
-}
-
-.proud-input:focus{
-    outline:none;
-    border-color:var(--ag);
-    background:rgba(255,255,255,.15);
-}
-
-.proud-input::placeholder{color:rgba(255,255,255,.5);}
-
-/* Review Day */
-.review-day .day-header{
-    background:#FFF3E0;
-    border:2px solid #FF9800;
-}
-
-.review-badge{
-    background:#FF6B6B;
-    color:white;
-    padding:.3rem .8rem;
-    border-radius:15px;
-    font-size:.75rem;
-    margin-right:.5rem;
-    font-weight:700;
-}
-
-.review-divider{
-    grid-column:1/-1;
-    height:2px;
-    background:#FF9800;
-    margin:.8rem 0;
-    border-radius:2px;
-}
-
-.review-label{
-    grid-column:1/-1;
-    text-align:center;
-    color:#E65100;
-    font-weight:800;
-    font-size:.9rem;
-    margin-top:.5rem;
-}
-</style>
-</head>
-<body>
 <div class="toast" id="toast"></div>
 
 <!-- Celebration Modal -->
 <div class="celebration-modal" id="celebrationModal">
-<div class="celebration-content">
-<div class="celebration-icon" id="celebrationIcon">🎉</div>
-<div class="celebration-title" id="celebrationTitle">مبروك!</div>
-<div class="celebration-text" id="celebrationText">أحسنت!</div>
-<button class="celebration-btn" onclick="closeCelebration()">استمرار</button>
-</div>
+    <div class="celebration-content">
+        <div class="celebration-icon" id="celebrationIcon">🎉</div>
+        <div class="celebration-title" id="celebrationTitle">مبروك!</div>
+        <div class="celebration-text" id="celebrationText">أحسنت!</div>
+        <button class="celebration-btn" onclick="closeCelebration()">استمرار</button>
+    </div>
 </div>
 
-<header class="header">
-<h1 class="main-title">⚡ الريمونتادا ⚡</h1>
-<div class="subtitle">"البداية القوية هي نصف المعركة"</div>
-<div class="stats-bar">
-<div class="stat-pill">21 كيمياء</div>
-<div class="stat-pill">17 فيزياء</div>
-<div class="stat-pill">38 يوم</div>
+<!-- Report Modal -->
+<div class="modal" id="reportModal">
+    <div class="modal-content">
+        <div class="modal-header">📊 التقرير الأسبوعي</div>
+        <div id="reportContent"></div>
+        <div class="data-actions">
+            <button class="data-btn" onclick="exportData()">📥 تصدير البيانات</button>
+            <button class="data-btn" onclick="document.getElementById('importFile').click()">📤 استيراد البيانات</button>
+            <input type="file" id="importFile" style="display:none" accept=".json" onchange="importData(this)">
+        </div>
+        <button class="modal-close" onclick="closeReport()">إغلاق</button>
+    </div>
 </div>
+
+<!-- Phase Navigation -->
+<div class="phase-nav">
+    <div class="phase-tabs">
+        <button class="phase-tab phase1 active" onclick="switchPhase(1)">
+            المرحلة 1
+            <div class="phase-status">المذاكرة والمراجعة العامة</div>
+        </button>
+        <button class="phase-tab phase2" onclick="switchPhase(2)">
+            المرحلة 2
+            <div class="phase-status">الفيزياء الحديثة والكيمياء العضوية</div>
+        </button>
+        <button class="phase-tab phase3" onclick="switchPhase(3)">
+            المرحلة 3
+            <div class="phase-status">المراجعة النهائية</div>
+        </button>
+        <button class="phase-tab" onclick="showCountdown()" style="background:linear-gradient(135deg,var(--countdown-color),#D32F2F);color:white;">
+            ⏰ العد التنازلي
+        </button>
+    </div>
+    <div class="current-phase-info">
+        <span id="currentPhaseText">📍 أنت الآن في: المرحلة 1 - الأسبوع 1</span>
+        <span id="nextPhaseCountdown">⏳ المتبقي: 11 يوم على المرحلة 2</span>
+    </div>
+</div>
+
+<!-- Alert Banner (Auto Phase Switch) -->
+<div class="alert-banner" id="phaseAlert" style="display:none;">
+    <span>🎯 يمكنك الانتقال للمرحلة التالية!</span>
+    <button onclick="switchPhase(autoPhase)">انتقال الآن</button>
+    <button onclick="hidePhaseAlert()">البقاء هنا</button>
+</div>
+
+<!-- Header -->
+<header class="header">
+    <h1 class="main-title">⚡ الريمونتادا ⚡</h1>
+    <div class="subtitle">"البداية القوية هي نصف المعركة"</div>
 </header>
 
-<div class="week-nav">
-<button class="week-btn" onclick="changeWeek(-1)"><i class="fas fa-chevron-right"></i></button>
-<div class="week-title" id="weekTitle">الأسبوع الأول</div>
-<button class="week-btn" onclick="changeWeek(1)"><i class="fas fa-chevron-left"></i></button>
+<!-- Phase 1 Content -->
+<div class="phase-content active" id="phase1">
+    <div class="container">
+        <div class="motivation-banner" id="motivationBanner1">
+            💪 كل يوم تقربك خطوة من هدفك! ابدأ بقوة!
+        </div>
+        
+        <div class="day-counter-section">
+            <div class="day-counter-title">📊 عداد أيام المرحلة الأولى</div>
+            <div class="day-counter">
+                <div class="counter-box" onclick="handleDayEnd(1)">
+                    <div class="counter-number" id="dayNumber1">1</div>
+                    <div class="counter-label">اليوم</div>
+                </div>
+                <button class="counter-btn" onclick="handleDayEnd(1)">
+                    <i class="fas fa-flag-checkered"></i> انتهيت من اليوم!
+                </button>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-weight:700;">
+                <span>نسبة إنجاز المرحلة 1</span>
+                <span id="progressPercent1">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill1" style="width:0%">0%</div>
+            </div>
+        </div>
+
+        <div class="week-nav">
+            <button class="week-btn" onclick="changeWeek(1, -1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="week-title" id="weekTitle1">الأسبوع الأول</div>
+            <button class="week-btn" onclick="changeWeek(1, 1)"><i class="fas fa-chevron-left"></i></button>
+        </div>
+
+        <div class="schedule-card">
+            <div class="schedule-header">الجدول اليومي - المرحلة 1</div>
+            <table class="schedule-table">
+                <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>الحصة/الباب</th></tr></thead>
+                <tbody id="scheduleBody1"></tbody>
+            </table>
+        </div>
+
+        <div id="tasksContainer1"></div>
+
+        <div class="chart-section">
+            <div class="chart-title">📈 رسم بياني للتقدم الأسبوعي</div>
+            <canvas id="progressChart1" width="400" height="200"></canvas>
+        </div>
+    </div>
 </div>
 
-<div class="container">
-<!-- Motivational Banner -->
-<div class="motivation-banner" id="motivationBanner">
-💪 كل يوم تقربك خطوة من هدفك! ابدأ بقوة!
+<!-- Phase 2 Content -->
+<div class="phase-content" id="phase2">
+    <div class="container">
+        <div class="motivation-banner" id="motivationBanner2">
+            🔥 المرحلة الثانية: التخصص والعمق!
+        </div>
+        
+        <div class="day-counter-section">
+            <div class="day-counter-title">📊 عداد أيام المرحلة الثانية</div>
+            <div class="day-counter">
+                <div class="counter-box" onclick="handleDayEnd(2)">
+                    <div class="counter-number" id="dayNumber2">1</div>
+                    <div class="counter-label">اليوم</div>
+                </div>
+                <button class="counter-btn" onclick="handleDayEnd(2)">
+                    <i class="fas fa-flag-checkered"></i> انتهيت من اليوم!
+                </button>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-weight:700;">
+                <span>نسبة إنجاز المرحلة 2</span>
+                <span id="progressPercent2">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill2" style="width:0%">0%</div>
+            </div>
+        </div>
+
+        <div class="week-nav">
+            <button class="week-btn" onclick="changeWeek(2, -1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="week-title" id="weekTitle2">الأسبوع الأول</div>
+            <button class="week-btn" onclick="changeWeek(2, 1)"><i class="fas fa-chevron-left"></i></button>
+        </div>
+
+        <div class="schedule-card">
+            <div class="schedule-header">الجدول اليومي - المرحلة 2</div>
+            <table class="schedule-table">
+                <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>الموضوع</th></tr></thead>
+                <tbody id="scheduleBody2"></tbody>
+            </table>
+        </div>
+
+        <div id="tasksContainer2"></div>
+
+        <div class="chart-section">
+            <div class="chart-title">📈 رسم بياني للتقدم الأسبوعي</div>
+            <canvas id="progressChart2" width="400" height="200"></canvas>
+        </div>
+    </div>
 </div>
 
-<!-- Day Counter -->
-<div class="day-counter-section">
-<div class="day-counter-title">📊 عداد التقدم</div>
-<div class="day-counter">
-<div class="counter-box" onclick="handleDayEnd()">
-<div class="counter-number" id="dayNumber">1</div>
-<div class="counter-label">اليوم الـ 38</div>
-</div>
-<button class="counter-btn" onclick="handleDayEnd()">
-<i class="fas fa-flag-checkered"></i> انتهيت من اليوم!
-</button>
-</div>
+<!-- Phase 3 Content -->
+<div class="phase-content" id="phase3">
+    <div class="container">
+        <div class="motivation-banner" id="motivationBanner3">
+            🎯 المرحلة النهائية: الاستعداد للامتحان!
+        </div>
+        
+        <div class="day-counter-section">
+            <div class="day-counter-title">📊 عداد أيام المرحلة النهائية</div>
+            <div class="day-counter">
+                <div class="counter-box" onclick="handleDayEnd(3)">
+                    <div class="counter-number" id="dayNumber3">1</div>
+                    <div class="counter-label">اليوم</div>
+                </div>
+                <button class="counter-btn" onclick="handleDayEnd(3)">
+                    <i class="fas fa-flag-checkered"></i> انتهيت من اليوم!
+                </button>
+            </div>
+        </div>
+
+        <div class="progress-section">
+            <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-weight:700;">
+                <span>نسبة إنجاز المرحلة 3</span>
+                <span id="progressPercent3">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill3" style="width:0%">0%</div>
+            </div>
+        </div>
+
+        <div class="week-nav">
+            <button class="week-btn" onclick="changeWeek(3, -1)"><i class="fas fa-chevron-right"></i></button>
+            <div class="week-title" id="weekTitle3">الأسبوع الأول</div>
+            <button class="week-btn" onclick="changeWeek(3, 1)"><i class="fas fa-chevron-left"></i></button>
+        </div>
+
+        <div class="schedule-card">
+            <div class="schedule-header">الجدول اليومي - المرحلة 3</div>
+            <table class="schedule-table">
+                <thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>المهام</th></tr></thead>
+                <tbody id="scheduleBody3"></tbody>
+            </table>
+        </div>
+
+        <div id="tasksContainer3"></div>
+
+        <div class="chart-section">
+            <div class="chart-title">📈 رسم بياني للتقدم الأسبوعي</div>
+            <canvas id="progressChart3" width="400" height="200"></canvas>
+        </div>
+    </div>
 </div>
 
-<div class="progress-section">
-<div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-weight:700;">
-<span>نسبة الإنجاز</span>
-<span id="progressPercent">0%</span>
-</div>
-<div class="progress-bar">
-<div class="progress-fill" id="progressFill" style="width:0%">0%</div>
-</div>
+<!-- Countdown Section (Hidden by default) -->
+<div class="phase-content" id="countdownPhase">
+    <div class="container">
+        <div class="countdown-section">
+            <div class="countdown-title">⏰ العد التنازلي للامتحانات</div>
+            <div class="countdown-grid">
+                <div class="countdown-box">
+                    <div class="countdown-number" id="chemDays">--</div>
+                    <div class="countdown-label">يوم للكيمياء<br><small>2 يوليو 9:00 ص</small></div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="physDays">--</div>
+                    <div class="countdown-label">يوم للفيزياء<br><small>9 يوليو 9:00 ص</small></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chart-section">
+            <div class="chart-title">📊 إجمالي التقدم في جميع المراحل</div>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number" id="totalTasks">0</div>
+                    <div class="stat-label">إجمالي المهام</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="completedTasks">0</div>
+                    <div class="stat-label">المهام المنجزة</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="totalProgress">0%</div>
+                    <div class="stat-label">نسبة الإنجاز الكلية</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="studyDays">0</div>
+                    <div class="stat-label">أيام المذاكرة</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="schedule-card">
-<div class="schedule-header">الجدول اليومي</div>
-<table class="schedule-table">
-<thead><tr><th>اليوم</th><th>التاريخ</th><th>المادة</th><th>الحصة</th></tr></thead>
-<tbody id="scheduleBody"></tbody>
-</table>
-</div>
-
-<div id="tasksContainer"></div>
-</div>
-
-<!-- Bottom Fixed Bar -->
+<!-- Bottom Bar -->
 <div class="bottom-bar">
-<!-- Niya Section (Left) -->
-<div class="niya-section">
-<div class="niya-title"><i class="fas fa-praying-hands"></i> تجديد النية</div>
-<div class="niya-quote">"اللهم إني نويت المذاكرة لوجهك الكريم"</div>
-<div class="niya-counter" id="niyaCounter">0</div>
-<button class="niya-btn" onclick="renewNiya()"><i class="fas fa-heart"></i> جدد الآن</button>
-</div>
+    <div class="niya-section">
+        <div class="niya-title"><i class="fas fa-praying-hands"></i> تجديد النية</div>
+        <div class="niya-quote">"اللهم إني نويت المذاكرة لوجهك الكريم"</div>
+        <div class="niya-counter" id="niyaCounter">0</div>
+        <button class="niya-btn" onclick="renewNiya()"><i class="fas fa-heart"></i> جدد الآن</button>
+    </div>
 
-<!-- Proud Section (Right) -->
-<div class="proud-section">
-<div class="proud-title"><i class="fas fa-trophy"></i> فخور الأسبوع ده إني:</div>
-<textarea class="proud-input" id="proudInput" placeholder="اكتب إنجازاتك هذا الأسبوع..."></textarea>
-</div>
-</div>
+    <div class="proud-section">
+        <div class="proud-title"><i class="fas fa-trophy"></i> فخور الأسبوع:</div>
+        <textarea class="proud-input" id="proudInput" placeholder="اكتب إنجازاتك هذا الأسبوع..."></textarea>
+    </div>
 
+    <button class="report-btn" onclick="showReport()">
+        <i class="fas fa-chart-bar"></i> التقرير الأسبوعي
+    </button>
+</div>
 <script>
-// الجدول من 17 أبريل إلى 24 مايو (38 يوم)
-// أيام المراجعة الكيمياء: 21/4, 28/4, 4/5, 10/5
-// أيام المراجعة الفيزياء: 14/5, 19/5, 24/5
+// ==========================================
+// DATA STRUCTURES - ALL 3 PHASES
+// ==========================================
 
-const weeksData = [
-{
-"id": 1,
-"title": "الأسبوع الأول (17 أبريل - 23 أبريل)",
-"schedule": [
-{"day": "الجمعة", "date": "17 أبريل", "subject": "كيمياء", "lesson": 1, "type": "chem", "chapter": 1},
-{"day": "السبت", "date": "18 أبريل", "subject": "كيمياء", "lesson": 2, "type": "chem", "chapter": 1},
-{"day": "الأحد", "date": "19 أبريل", "subject": "كيمياء", "lesson": 3, "type": "chem", "chapter": 1},
-{"day": "الإثنين", "date": "20 أبريل", "subject": "كيمياء", "lesson": 4, "type": "chem", "chapter": 1},
-{"day": "الثلاثاء", "date": "21 أبريل", "subject": "كيمياء", "lesson": 5, "type": "chem", "chapter": 1, "lastInChapter": true, "chapterMessage": "✓ تم الانتهاء من الباب الأول", "hasReview": true, "reviewType": "chem", "reviewChapter": 1, "reviewLabel": "مراجعة الباب الأول"},
-{"day": "الأربعاء", "date": "22 أبريل", "subject": "كيمياء", "lesson": 6, "type": "chem", "chapter": 2},
-{"day": "الخميس", "date": "23 أبريل", "subject": "كيمياء", "lesson": 7, "type": "chem", "chapter": 2}
-]
-},
-{
-"id": 2,
-"title": "الأسبوع الثاني (24 أبريل - 30 أبريل)",
-"schedule": [
-{"day": "الجمعة", "date": "24 أبريل", "subject": "كيمياء", "lesson": 8, "type": "chem", "chapter": 2},
-{"day": "السبت", "date": "25 أبريل", "subject": "كيمياء", "lesson": 9, "type": "chem", "chapter": 2},
-{"day": "الأحد", "date": "26 أبريل", "subject": "كيمياء", "lesson": 10, "type": "chem", "chapter": 2},
-{"day": "الإثنين", "date": "27 أبريل", "subject": "كيمياء", "lesson": 11, "type": "chem", "chapter": 2},
-{"day": "الثلاثاء", "date": "28 أبريل", "subject": "كيمياء", "lesson": 12, "type": "chem", "chapter": 2, "lastInChapter": true, "chapterMessage": "✓ تم الانتهاء من الباب الثاني", "hasReview": true, "reviewType": "chem", "reviewChapter": 2, "reviewLabel": "مراجعة الباب الثاني"},
-{"day": "الأربعاء", "date": "29 أبريل", "subject": "كيمياء", "lesson": 13, "type": "chem", "chapter": 3},
-{"day": "الخميس", "date": "30 أبريل", "subject": "كيمياء", "lesson": 14, "type": "chem", "chapter": 3}
-]
-},
-{
-"id": 3,
-"title": "الأسبوع الثالث (1 مايو - 7 مايو)",
-"schedule": [
-{"day": "الجمعة", "date": "1 مايو", "subject": "كيمياء", "lesson": 15, "type": "chem", "chapter": 3},
-{"day": "السبت", "date": "2 مايو", "subject": "كيمياء", "lesson": 16, "type": "chem", "chapter": 3},
-{"day": "الأحد", "date": "3 مايو", "subject": "كيمياء", "lesson": 17, "type": "chem", "chapter": 3},
-{"day": "الإثنين", "date": "4 مايو", "subject": "كيمياء", "lesson": 18, "type": "chem", "chapter": 3, "lastInChapter": true, "chapterMessage": "✓ تم الانتهاء من الباب الثالث", "hasReview": true, "reviewType": "chem", "reviewChapter": 3, "reviewLabel": "مراجعة الباب الثالث"},
-{"day": "الثلاثاء", "date": "5 مايو", "subject": "كيمياء", "lesson": 19, "type": "chem", "chapter": 4},
-{"day": "الأربعاء", "date": "6 مايو", "subject": "كيمياء", "lesson": 20, "type": "chem", "chapter": 4},
-{"day": "الخميس", "date": "7 مايو", "subject": "كيمياء", "lesson": 21, "type": "chem", "chapter": 4, "lastInChapter": true, "chapterMessage": "✓ تم الانتهاء من الكيمياء"}
-]
-},
-{
-"id": 4,
-"title": "الأسبوع الرابع (8 مايو - 14 مايو)",
-"schedule": [
-{"day": "الجمعة", "date": "8 مايو", "subject": "كيمياء", "lesson": "مراجعة", "type": "chem", "hasReview": true, "reviewType": "chem", "reviewChapter": 4, "reviewLabel": "مراجعة شاملة الكيمياء", "isExtraReview": true},
-{"day": "السبت", "date": "9 مايو", "subject": "فيزياء", "lesson": 1, "type": "phys", "chapter": 1},
-{"day": "الأحد", "date": "10 مايو", "subject": "فيزياء", "lesson": 2, "type": "phys", "chapter": 1, "hasReview": true, "reviewType": "chem", "reviewChapter": 4, "reviewLabel": "مراجعة نهائية كيمياء"},
-{"day": "الإثنين", "date": "11 مايو", "subject": "فيزياء", "lesson": 3, "type": "phys", "chapter": 1},
-{"day": "الثلاثاء", "date": "12 مايو", "subject": "فيزياء", "lesson": 4, "type": "phys", "chapter": 1},
-{"day": "الأربعاء", "date": "13 مايو", "subject": "فيزياء", "lesson": 5, "type": "phys", "chapter": 1},
-{"day": "الخميس", "date": "14 مايو", "subject": "فيزياء", "lesson": 6, "type": "phys", "chapter": 1, "lastInChapter": true, "chapterMessage": "✓ تم الانتهاء من الفصل الأول", "hasReview": true, "reviewType": "phys", "reviewChapter": 1, "reviewLabel": "مراجعة الفصل الأول"}
-]
-},
-{
-"id": 5,
-"title": "الأسبوع الخامس (15 مايو - 21 مايو)",
-"schedule": [
-{"day": "الجمعة", "date": "15 مايو", "subject": "فيزياء", "lesson": 7, "type": "phys", "chapter": 2},
-{"day": "السبت", "date": "16 مايو", "subject": "فيزياء", "lesson": 8, "type": "phys", "chapter": 2},
-{"day": "الأحد", "date": "17 مايو", "subject": "فيزياء", "lesson": 9, "type": "phys", "chapter": 2},
-{"day": "الإثنين", "date": "18 مايو", "subject": "فيزياء", "lesson": 10, "type": "phys", "chapter": 2},
-{"day": "الثلاثاء", "date": "19 مايو", "subject": "فيزياء", "lesson": 11, "type": "phys", "chapter": 2, "lastInChapter": true, "chapterMessage": "✓ تم الانتهاء من الفصل الثاني", "hasReview": true, "reviewType": "phys", "reviewChapter": 2, "reviewLabel": "مراجعة الفصل الثاني"},
-{"day": "الأربعاء", "date": "20 مايو", "subject": "فيزياء", "lesson": 12, "type": "phys", "chapter": 3},
-{"day": "الخميس", "date": "21 مايو", "subject": "فيزياء", "lesson": 13, "type": "phys", "chapter": 3}
-]
-},
-{
-"id": 6,
-"title": "الأسبوع السادس (22 مايو - 24 مايو)",
-"schedule": [
-{"day": "الجمعة", "date": "22 مايو", "subject": "فيزياء", "lesson": 14, "type": "phys", "chapter": 3},
-{"day": "السبت", "date": "23 مايو", "subject": "فيزياء", "lesson": 15, "type": "phys", "chapter": 3},
-{"day": "الأحد", "date": "24 مايو", "subject": "فيزياء", "lesson": 16, "type": "phys", "chapter": 3, "lastInChapter": true, "chapterMessage": "✓ تم الانتهاء من الفيزياء", "hasReview": true, "reviewType": "phys", "reviewChapter": 3, "reviewLabel": "مراجعة الفصل الثالث"}
-]
-}
+// Phase 1: المذاكرة والمراجعة العامة (17 أبريل - 10 مايو)
+const phase1Data = [
+    // الأسبوع الأول - الباب الأول كيمياء
+    {
+        id: 1,
+        title: "الأسبوع الأول - الباب الأول: التحليل الكيميائي",
+        schedule: [
+            {day: "الخميس", date: "17 أبريل", subject: "كيمياء", lesson: 1, chapter: 1, type: "chem"},
+            {day: "الجمعة", date: "18 أبريل", subject: "كيمياء", lesson: 2, chapter: 1, type: "chem"},
+            {day: "السبت", date: "19 أبريل", subject: "كيمياء", lesson: 3, chapter: 1, type: "chem"},
+            {day: "الأحد", date: "20 أبريل", subject: "كيمياء", lesson: 4, chapter: 1, type: "chem"},
+            {day: "الإثنين", date: "21 أبريل", subject: "كيمياء", lesson: 5, chapter: 1, type: "chem", lastInChapter: true, chapterMessage: "✓ تم الانتهاء من الباب الأول"}
+        ]
+    },
+    // مراجعة الباب الأول (22-25 أبريل)
+    {
+        id: 2,
+        title: "مراجعة الباب الأول - 22-25 أبريل",
+        schedule: [
+            {day: "الثلاثاء", date: "22 أبريل", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 1, reviewDay: 1, reviewLabel: "مراجعة الباب الأول - لمون بالنعناع"},
+            {day: "الأربعاء", date: "23 أبريل", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 1, reviewDay: 2, reviewLabel: "مراجعة الباب الأول - كل يوم نص ساعة"},
+            {day: "الخميس", date: "24 أبريل", subject: "فيزياء", lesson: 1, chapter: 1, type: "phys", note: "محاضرة فيزياء أولى"},
+            {day: "الجمعة", date: "25 أبريل", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 1, reviewDay: 3, reviewLabel: "مراجعة الباب الأول - المراجعة النهائية"},
+            {day: "السبت", date: "26 أبريل", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 1, reviewDay: 4, reviewLabel: "مراجعة الباب الأول - امتحانات مندليف"}
+        ]
+    },
+    // الأسبوع الثاني - الباب الثاني كيمياء
+    {
+        id: 3,
+        title: "الأسبوع الثاني - الباب الثاني: الكيمياء الكهربية",
+        schedule: [
+            {day: "الأحد", date: "27 أبريل", subject: "كيمياء", lesson: 1, chapter: 2, type: "chem"},
+            {day: "الإثنين", date: "28 أبريل", subject: "كيمياء", lesson: 2, chapter: 2, type: "chem"},
+            {day: "الثلاثاء", date: "29 أبريل", subject: "كيمياء", lesson: 3, chapter: 2, type: "chem"},
+            {day: "الأربعاء", date: "30 أبريل", subject: "كيمياء", lesson: 4, chapter: 2, type: "chem"},
+            {day: "الخميس", date: "1 مايو", subject: "فيزياء", lesson: 2, chapter: 1, type: "phys", note: "محاضرة فيزياء ثانية"},
+            {day: "الجمعة", date: "2 مايو", subject: "كيمياء", lesson: 5, chapter: 2, type: "chem"},
+            {day: "السبت", date: "3 مايو", subject: "كيمياء", lesson: 6, chapter: 2, type: "chem", lastInChapter: true, chapterMessage: "✓ تم الانتهاء من الباب الثاني"}
+        ]
+    },
+    // مراجعة الباب الثاني (27-30 أبريل)
+    {
+        id: 4,
+        title: "مراجعة الباب الثاني - 27-30 أبريل",
+        schedule: [
+            {day: "الأحد", date: "27 أبريل", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 2, reviewDay: 1, reviewLabel: "مراجعة الباب الثاني - لمون بالنعناع"},
+            {day: "الإثنين", date: "28 أبريل", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 2, reviewDay: 2, reviewLabel: "مراجعة الباب الثاني - كل يوم نص ساعة"},
+            {day: "الثلاثاء", date: "29 أبريل", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 2, reviewDay: 3, reviewLabel: "مراجعة الباب الثاني - المراجعة النهائية"},
+            {day: "الأربعاء", date: "30 أبريل", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 2, reviewDay: 4, reviewLabel: "مراجعة الباب الثاني - امتحانات مندليف"}
+        ]
+    },
+    // الأسبوع الثالث - الباب الثالث كيمياء
+    {
+        id: 5,
+        title: "الأسبوع الثالث - الباب الثالث: التوازن الكيميائي",
+        schedule: [
+            {day: "الخميس", date: "1 مايو", subject: "فيزياء", lesson: 3, chapter: 1, type: "phys", note: "محاضرة فيزياء ثالثة"},
+            {day: "الجمعة", date: "2 مايو", subject: "كيمياء", lesson: 1, chapter: 3, type: "chem"},
+            {day: "السبت", date: "3 مايو", subject: "كيمياء", lesson: 2, chapter: 3, type: "chem"},
+            {day: "الأحد", date: "4 مايو", subject: "كيمياء", lesson: 3, chapter: 3, type: "chem"},
+            {day: "الإثنين", date: "5 مايو", subject: "كيمياء", lesson: 4, chapter: 3, type: "chem"},
+            {day: "الثلاثاء", date: "6 مايو", subject: "كيمياء", lesson: 5, chapter: 3, type: "chem", lastInChapter: true, chapterMessage: "✓ تم الانتهاء من الباب الثالث"}
+        ]
+    },
+    // مراجعة الباب الثالث (3-5 مايو)
+    {
+        id: 6,
+        title: "مراجعة الباب الثالث - 3-5 مايو",
+        schedule: [
+            {day: "الأربعاء", date: "3 مايو", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 3, reviewDay: 1, reviewLabel: "مراجعة الباب الثالث - لمون بالنعناع"},
+            {day: "الخميس", date: "4 مايو", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 3, reviewDay: 2, reviewLabel: "مراجعة الباب الثالث - كل يوم نص ساعة"},
+            {day: "الجمعة", date: "5 مايو", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 3, reviewDay: 3, reviewLabel: "مراجعة الباب الثالث - المراجعة النهائية"}
+        ]
+    },
+    // الأسبوع الرابع - الباب الرابع كيمياء
+    {
+        id: 7,
+        title: "الأسبوع الرابع - الباب الرابع: الكيمياء العضوية",
+        schedule: [
+            {day: "السبت", date: "6 مايو", subject: "كيمياء", lesson: 1, chapter: 4, type: "chem"},
+            {day: "الأحد", date: "7 مايو", subject: "كيمياء", lesson: 2, chapter: 4, type: "chem"},
+            {day: "الإثنين", date: "8 مايو", subject: "كيمياء", lesson: 3, chapter: 4, type: "chem"},
+            {day: "الثلاثاء", date: "9 مايو", subject: "كيمياء", lesson: 4, chapter: 4, type: "chem"},
+            {day: "الأربعاء", date: "10 مايو", subject: "كيمياء", lesson: 5, chapter: 4, type: "chem", lastInChapter: true, chapterMessage: "✓ تم الانتهاء من الكيمياء"}
+        ]
+    },
+    // مراجعة الباب الرابع (6-10 مايو) - استثناء: مهام مدمجة
+    {
+        id: 8,
+        title: "مراجعة الباب الرابع - 6-10 مايو (استثناء: مهام مدمجة)",
+        schedule: [
+            {day: "السبت", date: "6 مايو", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 4, reviewDay: 1, reviewLabel: "مراجعة الباب الرابع - لمون بالنعناع", integratedWithStudy: true},
+            {day: "الأحد", date: "7 مايو", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 4, reviewDay: 2, reviewLabel: "مراجعة الباب الرابع - كل يوم نص ساعة", integratedWithStudy: true},
+            {day: "الإثنين", date: "8 مايو", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 4, reviewDay: 3, reviewLabel: "مراجعة الباب الرابع - المراجعة النهائية", integratedWithStudy: true},
+            {day: "الثلاثاء", date: "9 مايو", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 4, reviewDay: 4, reviewLabel: "مراجعة الباب الرابع - امتحانات مندليف", integratedWithStudy: true},
+            {day: "الأربعاء", date: "10 مايو", subject: "كيمياء", lesson: "مراجعة", type: "chem", isReview: true, reviewChapter: 4, reviewDay: 5, reviewLabel: "مراجعة الباب الرابع - مراجعة شاملة", integratedWithStudy: true}
+        ]
+    },
+    // الفيزياء - الفصل الأول (11-14 مايو)
+    {
+        id: 9,
+        title: "الفيزياء - الفصل الأول: الميكانيكا",
+        schedule: [
+            {day: "الخميس", date: "11 مايو", subject: "فيزياء", lesson: 1, chapter: 1, type: "phys"},
+            {day: "الجمعة", date: "12 مايو", subject: "فيزياء", lesson: 2, chapter: 1, type: "phys"},
+            {day: "السبت", date: "13 مايو", subject: "فيزياء", lesson: 3, chapter: 1, type: "phys"},
+            {day: "الأحد", date: "14 مايو", subject: "فيزياء", lesson: 4, chapter: 1, type: "phys", lastInChapter: true, chapterMessage: "✓ تم الانتهاء من الفصل الأول"}
+        ]
+    },
+    // مراجعة الفصل الأول (14-17 مايو)
+    {
+        id: 10,
+        title: "مراجعة الفصل الأول - 14-17 مايو",
+        schedule: [
+            {day: "الأحد", date: "14 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 1, reviewDay: 1, reviewLabel: "مراجعة الفصل الأول - كتب السنين السابقة"},
+            {day: "الإثنين", date: "15 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 1, reviewDay: 2, reviewLabel: "مراجعة الفصل الأول - المراجعة النهائية"},
+            {day: "الثلاثاء", date: "16 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 1, reviewDay: 3, reviewLabel: "مراجعة الفصل الأول - كتاب نيوتن"},
+            {day: "الأربعاء", date: "17 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 1, reviewDay: 4, reviewLabel: "مراجعة الفصل الأول - مراجعة شاملة"}
+        ]
+    },
+    // الفيزياء - الفصل الثاني (18-20 مايو)
+    {
+        id: 11,
+        title: "الفيزياء - الفصل الثاني: الكهربية",
+        schedule: [
+            {day: "الخميس", date: "18 مايو", subject: "فيزياء", lesson: 1, chapter: 2, type: "phys"},
+            {day: "الجمعة", date: "19 مايو", subject: "فيزياء", lesson: 2, chapter: 2, type: "phys"},
+            {day: "السبت", date: "20 مايو", subject: "فيزياء", lesson: 3, chapter: 2, type: "phys", lastInChapter: true, chapterMessage: "✓ تم الانتهاء من الفصل الثاني"}
+        ]
+    },
+    // مراجعة الفصل الثاني (19-22 مايو)
+    {
+        id: 12,
+        title: "مراجعة الفصل الثاني - 19-22 مايو",
+        schedule: [
+            {day: "الإثنين", date: "19 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 2, reviewDay: 1, reviewLabel: "مراجعة الفصل الثاني - كتب السنين السابقة"},
+            {day: "الثلاثاء", date: "20 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 2, reviewDay: 2, reviewLabel: "مراجعة الفصل الثاني - المراجعة النهائية"},
+            {day: "الأربعاء", date: "21 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 2, reviewDay: 3, reviewLabel: "مراجعة الفصل الثاني - كتاب نيوتن"},
+            {day: "الخميس", date: "22 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 2, reviewDay: 4, reviewLabel: "مراجعة الفصل الثاني - مراجعة شاملة"}
+        ]
+    },
+    // الفيزياء - الفصل الثالث (23 مايو)
+    {
+        id: 13,
+        title: "الفيزياء - الفصل الثالث: المغناطيسية",
+        schedule: [
+            {day: "الجمعة", date: "23 مايو", subject: "فيزياء", lesson: 1, chapter: 3, type: "phys", lastInChapter: true, chapterMessage: "✓ تم الانتهاء من الفصل الثالث"}
+        ]
+    },
+    // مراجعة الفصل الثالث (24-27 مايو)
+    {
+        id: 14,
+        title: "مراجعة الفصل الثالث - 24-27 مايو",
+        schedule: [
+            {day: "السبت", date: "24 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 3, reviewDay: 1, reviewLabel: "مراجعة الفصل الثالث - كتب السنين السابقة"},
+            {day: "الأحد", date: "25 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 3, reviewDay: 2, reviewLabel: "مراجعة الفصل الثالث - المراجعة النهائية"},
+            {day: "الإثنين", date: "26 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 3, reviewDay: 3, reviewLabel: "مراجعة الفصل الثالث - كتاب نيوتن"},
+            {day: "الثلاثاء", date: "27 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 3, reviewDay: 4, reviewLabel: "مراجعة الفصل الثالث - مراجعة شاملة"}
+        ]
+    },
+    // الفيزياء - الفصل الرابع (28-29 مايو)
+    {
+        id: 15,
+        title: "الفيزياء - الفصل الرابع: الحديثة",
+        schedule: [
+            {day: "الأربعاء", date: "28 مايو", subject: "فيزياء", lesson: 1, chapter: 4, type: "phys"},
+            {day: "الخميس", date: "29 مايو", subject: "فيزياء", lesson: 2, chapter: 4, type: "phys", lastInChapter: true, chapterMessage: "✓ تم الانتهاء من الفيزياء"}
+        ]
+    },
+    // مراجعة الفصل الرابع (28-30 مايو)
+    {
+        id: 16,
+        title: "مراجعة الفصل الرابع - 28-30 مايو",
+        schedule: [
+            {day: "الأربعاء", date: "28 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 4, reviewDay: 1, reviewLabel: "مراجعة الفصل الرابع - كتب السنين السابقة"},
+            {day: "الخميس", date: "29 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 4, reviewDay: 2, reviewLabel: "مراجعة الفصل الرابع - المراجعة النهائية"},
+            {day: "الجمعة", date: "30 مايو", subject: "فيزياء", lesson: "مراجعة", type: "phys", isReview: true, reviewChapter: 4, reviewDay: 3, reviewLabel: "مراجعة الفصل الرابع - كتاب نيوتن"}
+        ]
+    }
 ];
 
-const chemTasks = [{id:'lecture', label:'سماع المحاضرة كاملة', icon:'fa-headphones'}, {id:'homework', label:'حل الواجب', icon:'fa-pen'}, {id:'past', label:'حل اسئلة السنين السابقة', icon:'fa-graduation-cap'}, {id:'mandatory', label:'حل كتاب مندليف', icon:'fa-book'}, {id:'review', label:'حل كتاب التفوق', icon:'fa-star'}];
-const physTasks = [{id:'lecture', label:'سماع المحاضرة كاملة', icon:'fa-headphones'}, {id:'homework', label:'حل الواجب', icon:'fa-pen'}, {id:'past', label:'حل اسئلة السنوات السابقة', icon:'fa-graduation-cap'}, {id:'exambook', label:'حل كتاب الامتحان', icon:'fa-file-alt'}, {id:'review', label:'حل كتاب التفوق', icon:'fa-star'}];
+// Phase 2: الفيزياء الحديثة والكيمياء العضوية (28 مايو - 13 يونيو)
+const phase2Data = [
+    {
+        id: 1,
+        title: "الأسبوع الأول - تناوب يومي",
+        schedule: [
+            {day: "الأربعاء", date: "28 مايو", subject: "فيزياء", topic: "الفصل الرابع - الجزء 1", type: "phys"},
+            {day: "الخميس", date: "29 مايو", subject: "كيمياء", topic: "الباب الخامس - الجزء 1", type: "chem"},
+            {day: "الجمعة", date: "30 مايو", subject: "فيزياء", topic: "الفصل الرابع - الجزء 2", type: "phys"},
+            {day: "السبت", date: "31 مايو", subject: "كيمياء", topic: "الباب الخامس - الجزء 2", type: "chem"},
+            {day: "الأحد", date: "1 يونيو", subject: "فيزياء", topic: "مراجعة الفصل الرابع", type: "phys", isReview: true},
+            {day: "الإثنين", date: "2 يونيو", subject: "كيمياء", topic: "الباب السادس - الجزء 1", type: "chem"},
+            {day: "الثلاثاء", date: "3 يونيو", subject: "فيزياء", topic: "الفصل الخامس - الجزء 1", type: "phys"}
+        ]
+    },
+    {
+        id: 2,
+        title: "الأسبوع الثاني - استمرار التناوب",
+        schedule: [
+            {day: "الأربعاء", date: "4 يونيو", subject: "كيمياء", topic: "الباب السادس - الجزء 2", type: "chem"},
+            {day: "الخميس", date: "5 يونيو", subject: "فيزياء", topic: "الفصل الخامس - الجزء 2", type: "phys"},
+            {day: "الجمعة", date: "6 يونيو", subject: "كيمياء", topic: "الباب السابع - الجزء 1", type: "chem"},
+            {day: "السبت", date: "7 يونيو", subject: "فيزياء", topic: "مراجعة الفصل الخامس", type: "phys", isReview: true},
+            {day: "الأحد", date: "8 يونيو", subject: "كيمياء", topic: "الباب السابع - الجزء 2", type: "chem"},
+            {day: "الإثنين", date: "9 يونيو", subject: "فيزياء", topic: "الفصل السادس - الجزء 1", type: "phys"},
+            {day: "الثلاثاء", date: "10 يونيو", subject: "كيمياء", topic: "مراجعة الكيمياء العضوية", type: "chem", isReview: true}
+        ]
+    },
+    {
+        id: 3,
+        title: "الأسبوع الثالث - الختام",
+        schedule: [
+            {day: "الأربعاء", date: "11 يونيو", subject: "فيزياء", topic: "الفصل السادس - الجزء 2", type: "phys"},
+            {day: "الخميس", date: "12 يونيو", subject: "كيمياء", topic: "مراجعة نهائية", type: "chem", isReview: true},
+            {day: "الجمعة", date: "13 يونيو", subject: "فيزياء", topic: "مراجعة الفيزياء الحديثة", type: "phys", isReview: true, lastInPhase: true, phaseMessage: "✓ تم الانتهاء من المرحلة الثانية"}
+        ]
+    }
+];
 
-// مهام المراجعة الإضافية
+// Phase 3: المراجعة النهائية (14 يونيو - 28 يونيو)
+const phase3Data = [
+    {
+        id: 1,
+        title: "الأسبوع الأول - المراجعة النهائية",
+        schedule: [
+            {day: "السبت", date: "14 يونيو", subject: "كيمياء", tasks: ["محاضرة", "مراجعة نهائية", "التفوق", "الامتحان", "امتحان شامل 1"], type: "chem"},
+            {day: "الأحد", date: "15 يونيو", subject: "فيزياء", tasks: ["محاضرة", "التفوق", "مراجعة", "الامتحان", "نيوتن", "امتحان شامل 1"], type: "phys"},
+            {day: "الإثنين", date: "16 يونيو", subject: "كيمياء", tasks: ["محاضرة", "مراجعة نهائية", "التفوق", "الامتحان", "امتحان شامل 2"], type: "chem"},
+            {day: "الثلاثاء", date: "17 يونيو", subject: "فيزياء", tasks: ["محاضرة", "التفوق", "مراجعة", "الامتحان", "نيوتن", "امتحان شامل 2"], type: "phys"},
+            {day: "الأربعاء", date: "18 يونيو", subject: "كيمياء", tasks: ["محاضرة", "مراجعة نهائية", "التفوق", "الامتحان", "امتحان شامل 3"], type: "chem"},
+            {day: "الخميس", date: "19 يونيو", subject: "فيزياء", tasks: ["محاضرة", "التفوق", "مراجعة", "الامتحان", "نيوتن", "امتحان شامل 3"], type: "phys"},
+            {day: "الجمعة", date: "20 يونيو", subject: "كيمياء", tasks: ["محاضرة", "مراجعة نهائية", "التفوق", "الامتحان", "امتحان شامل 4"], type: "chem"}
+        ]
+    },
+    {
+        id: 2,
+        title: "الأسبوع الثاني - المراجعة المكثفة",
+        schedule: [
+            {day: "السبت", date: "21 يونيو", subject: "فيزياء", tasks: ["محاضرة", "التفوق", "مراجعة", "الامتحان", "نيوتن", "امتحان شامل 4"], type: "phys"},
+            {day: "الأحد", date: "22 يونيو", subject: "كيمياء", tasks: ["محاضرة", "مراجعة نهائية", "التفوق", "الامتحان", "امتحان شامل 5"], type: "chem"},
+            {day: "الإثنين", date: "23 يونيو", subject: "فيزياء", tasks: ["محاضرة", "التفوق", "مراجعة", "الامتحان", "نيوتن", "امتحان شامل 5"], type: "phys"},
+            {day: "الثلاثاء", date: "24 يونيو", subject: "كيمياء", tasks: ["مراجعة شاملة", "حل امتحانات"], type: "chem", isReview: true},
+            {day: "الأربعاء", date: "25 يونيو", subject: "فيزياء", tasks: ["مراجعة شاملة", "حل امتحانات"], type: "phys", isReview: true},
+            {day: "الخميس", date: "26 يونيو", subject: "كيمياء", tasks: ["مراجعة ليلة الامتحان", "كتب ليالي الامتحان"], type: "chem", isReview: true},
+            {day: "الجمعة", date: "27 يونيو", subject: "فيزياء", tasks: ["مراجعة ليلة الامتحان", "كتب ليالي الامتحان"], type: "phys", isReview: true}
+        ]
+    },
+    {
+        id: 3,
+        title: "اليوم الأخير",
+        schedule: [
+            {day: "السبت", date: "28 يونيو", subject: "استراحة", tasks: ["استعداد نهائي", "تجهيز أوراق الامتحان", "راحة مبكرة"], type: "rest", lastInPhase: true, phaseMessage: "✓ انتهت المراجعة النهائية - بالتوفيق في الامتحان!"}
+        ]
+    }
+];
+
+// Tasks Templates
+const chemTasks = [
+    {id: 'lecture', label: 'سماع المحاضرة كاملة', icon: 'fa-headphones'},
+    {id: 'homework', label: 'حل الواجب', icon: 'fa-pen'},
+    {id: 'past', label: 'حل اسئلة السنين السابقة', icon: 'fa-graduation-cap'},
+    {id: 'mandatory', label: 'حل كتاب مندليف', icon: 'fa-book'},
+    {id: 'review', label: 'حل كتاب التفوق', icon: 'fa-star'}
+];
+
+const physTasks = [
+    {id: 'lecture', label: 'سماع المحاضرة كاملة', icon: 'fa-headphones'},
+    {id: 'homework', label: 'حل الواجب', icon: 'fa-pen'},
+    {id: 'past', label: 'حل اسئلة السنوات السابقة', icon: 'fa-graduation-cap'},
+    {id: 'exambook', label: 'حل كتاب الامتحان', icon: 'fa-file-alt'},
+    {id: 'review', label: 'حل كتاب التفوق', icon: 'fa-star'}
+];
+
 const chemReviewTasks = {
-1: [{id:'rev_lemon', label:'حل لمون بالنعناع', icon:'fa-lemon'}, {id:'rev_final', label:'حل كتاب المراجعة النهائية', icon:'fa-book-open'}, {id:'rev_mand', label:'حل امتحانات مندليف', icon:'fa-flask'}],
-2: [{id:'rev_daily', label:'حل كل يوم نص ساعة', icon:'fa-clock'}, {id:'rev_final', label:'حل كتاب المراجعة النهائية', icon:'fa-book-open'}, {id:'rev_mand', label:'حل امتحانات مندليف', icon:'fa-flask'}],
-3: [{id:'rev_daily', label:'حل كل يوم نص ساعة', icon:'fa-clock'}, {id:'rev_final', label:'حل كتاب المراجعة النهائية', icon:'fa-book-open'}, {id:'rev_mand', label:'حل امتحانات مندليف', icon:'fa-flask'}],
-4: [{id:'rev_all', label:'مراجعة جميع الأبواب', icon:'fa-layer-group'}, {id:'rev_final', label:'حل كتاب المراجعة النهائية', icon:'fa-book-open'}, {id:'rev_mand', label:'حل امتحانات متنوعة', icon:'fa-flask'}]
+    1: [
+        {id: 'rev_lemon', label: 'حل لمون بالنعناع', icon: 'fa-lemon'},
+        {id: 'rev_daily', label: 'حل كل يوم نص ساعة', icon: 'fa-clock'},
+        {id: 'rev_final', label: 'حل كتاب المراجعة النهائية', icon: 'fa-book-open'},
+        {id: 'rev_mand', label: 'حل امتحانات مندليف', icon: 'fa-flask'}
+    ],
+    2: [
+        {id: 'rev_lemon', label: 'حل لمون بالنعناع', icon: 'fa-lemon'},
+        {id: 'rev_daily', label: 'حل كل يوم نص ساعة', icon: 'fa-clock'},
+        {id: 'rev_final', label: 'حل كتاب المراجعة النهائية', icon: 'fa-book-open'},
+        {id: 'rev_mand', label: 'حل امتحانات مندليف', icon: 'fa-flask'}
+    ],
+    3: [
+        {id: 'rev_lemon', label: 'حل لمون بالنعناع', icon: 'fa-lemon'},
+        {id: 'rev_daily', label: 'حل كل يوم نص ساعة', icon: 'fa-clock'},
+        {id: 'rev_final', label: 'حل كتاب المراجعة النهائية', icon: 'fa-book-open'},
+        {id: 'rev_mand', label: 'حل امتحانات مندليف', icon: 'fa-flask'}
+    ],
+    4: [
+        {id: 'rev_lemon', label: 'حل لمون بالنعناع', icon: 'fa-lemon'},
+        {id: 'rev_daily', label: 'حل كل يوم نص ساعة', icon: 'fa-clock'},
+        {id: 'rev_final', label: 'حل كتاب المراجعة النهائية', icon: 'fa-book-open'},
+        {id: 'rev_mand', label: 'حل امتحانات متنوعة', icon: 'fa-flask'}
+    ]
 };
 
 const physReviewTasks = {
-1: [{id:'rev_newton', label:'حل كتاب نيوتن', icon:'fa-apple-alt'}, {id:'rev_final', label:'حل المراجعة النهائية', icon:'fa-book-open'}, {id:'rev_past', label:'حل كتاب السنة السابقة', icon:'fa-history'}],
-2: [{id:'rev_newton', label:'حل كتاب نيوتن', icon:'fa-apple-alt'}, {id:'rev_final', label:'حل المراجعة النهائية', icon:'fa-book-open'}, {id:'rev_past', label:'حل كتاب السنة السابقة', icon:'fa-history'}],
-3: [{id:'rev_all', label:'مراجعة جميع الفصول', icon:'fa-layer-group'}, {id:'rev_newton', label:'حل كتاب نيوتن', icon:'fa-apple-alt'}, {id:'rev_final', label:'حل المراجعة النهائية', icon:'fa-book-open'}]
+    1: [
+        {id: 'rev_past', label: 'حل كتب السنين السابقة', icon: 'fa-history'},
+        {id: 'rev_final', label: 'حل كتاب المراجعة النهائية', icon: 'fa-book-open'},
+        {id: 'rev_newton', label: 'حل كتاب نيوتن', icon: 'fa-apple-alt'}
+    ],
+    2: [
+        {id: 'rev_past', label: 'حل كتب السنين السابقة', icon: 'fa-history'},
+        {id: 'rev_final', label: 'حل كتاب المراجعة النهائية', icon: 'fa-book-open'},
+        {id: 'rev_newton', label: 'حل كتاب نيوتن', icon: 'fa-apple-alt'}
+    ],
+    3: [
+        {id: 'rev_past', label: 'حل كتب السنين السابقة', icon: 'fa-history'},
+        {id: 'rev_final', label: 'حل كتاب المراجعة النهائية', icon: 'fa-book-open'},
+        {id: 'rev_newton', label: 'حل كتاب نيوتن', icon: 'fa-apple-alt'}
+    ],
+    4: [
+        {id: 'rev_past', label: 'حل كتب السنين السابقة', icon: 'fa-history'},
+        {id: 'rev_final', label: 'حل كتاب المراجعة النهائية', icon: 'fa-book-open'},
+        {id: 'rev_newton', label: 'حل كتاب نيوتن', icon: 'fa-apple-alt'}
+    ]
 };
 
 // Motivational Quotes
 const weekQuotes = [
-"💪 كل يوم تقربك خطوة من هدفك! ابدأ بقوة!",
-"🔥 لا تستسلم! النجاح يحتاج صبراً ومثابرة!",
-"⚡ أنت أقوى مما تتخيل! واصل التقدم!",
-"🎯 ركز على هدفك ولا تنظر للخلف!",
-"🏆 النجاح قريب! استمر في المذاكرة!",
-"🌟 آخر أسبوع! اجتهد وستنجح!"
+    "💪 كل يوم تقربك خطوة من هدفك! ابدأ بقوة!",
+    "🔥 لا تستسلم! النجاح يحتاج صبراً ومثابرة!",
+    "⚡ أنت أقوى مما تتخيل! واصل التقدم!",
+    "🎯 ركز على هدفك ولا تنظر للخلف!",
+    "🏆 النجاح قريب! استمر في المذاكرة!",
+    "🌟 آخر أسبوع! اجتهد وستنجح!"
 ];
 
-// Day End Quotes
 const dayQuotes = [
-"✨ أحسنت! اليوم كان ناجحاً!",
-"💪 تقدم رائع! استمر على هذا النحو!",
-"🔥 أنت تقترب من هدفك يوماً بعد يوم!",
-"⚡ إنجاز مميز! فخور بك!",
-"🎯 هدفك أصبح أقرب! واصل!",
-"🏆 أداء ممتاز! احتفظ بهذا الزخم!",
-"🌟 النجاح يحب المجتهدين!",
-"💫 يوم رائع! غداً سيكون أفضل!"
+    "✨ أحسنت! اليوم كان ناجحاً!",
+    "💪 تقدم رائع! استمر على هذا النحو!",
+    "🔥 أنت تقترب من هدفك يوماً بعد يوم!",
+    "⚡ إنجاز مميز! فخور بك!",
+    "🎯 هدفك أصبح أقرب! واصل!",
+    "🏆 أداء ممتاز! احتفظ بهذا الزخم!",
+    "🌟 النجاح يحب المجتهدين!",
+    "💫 يوم رائع! غداً سيكون أفضل!"
 ];
 
-let currentWeek = 0;
-let currentDay = 1;
-let completedTasks = JSON.parse(localStorage.getItem('completedTasks') || '{}');
-let niyaCount = parseInt(localStorage.getItem('niyaCount') || '0');
-let savedDay = parseInt(localStorage.getItem('currentDay') || '1');
+// Global State
+let currentPhase = 1;
+let currentWeek = {1: 0, 2: 0, 3: 0};
+let completedTasks = {1: {}, 2: {}, 3: {}};
+let niyaCount = 0;
+let currentDay = {1: 1, 2: 1, 3: 1};
+let charts = {};
+// ==========================================
+// INITIALIZATION
+// ==========================================
 
-// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-currentDay = savedDay;
-renderWeek();
-updateProgress();
-updateNiyaDisplay();
-loadProudText();
-updateDayCounter();
-updateMotivationBanner();
-document.getElementById('proudInput').addEventListener('input', saveProudText);
+    // Load saved data
+    loadAllData();
+    
+    // Check auto phase
+    checkAutoPhase();
+    
+    // Initialize all phases
+    initPhase(1);
+    initPhase(2);
+    initPhase(3);
+    
+    // Update countdown
+    updateCountdown();
+    setInterval(updateCountdown, 60000); // Update every minute
+    
+    // Event listeners
+    document.getElementById('proudInput').addEventListener('input', saveProudText);
+    
+    // Initialize charts
+    initCharts();
 });
 
-// Niya Functions
-function updateNiyaDisplay() {
-document.getElementById('niyaCounter').textContent = niyaCount;
+// ==========================================
+// PHASE MANAGEMENT
+// ==========================================
+
+function switchPhase(phase) {
+    // Hide all phases
+    document.querySelectorAll('.phase-content').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    // Remove active class from all tabs
+    document.querySelectorAll('.phase-tab').forEach(el => {
+        el.classList.remove('active');
+    });
+    
+    // Show selected phase
+    if (phase === 'countdown') {
+        document.getElementById('countdownPhase').classList.add('active');
+    } else {
+        document.getElementById(`phase${phase}`).classList.add('active');
+        document.querySelector(`.phase-tab.phase${phase}`).classList.add('active');
+        currentPhase = phase;
+        
+        // Update phase info
+        updatePhaseInfo(phase);
+        
+        // Render current week
+        renderWeek(phase);
+        
+        // Update chart
+        updateChart(phase);
+    }
+    
+    // Save current phase
+    localStorage.setItem('currentPhase', currentPhase);
 }
 
-function renewNiya() {
-niyaCount++;
-localStorage.setItem('niyaCount', niyaCount);
-updateNiyaDisplay();
-showToast('✨ اللهم إني نويت المذاكرة لوجهك الكريم! بارك الله فيك');
-const btn = document.querySelector('.niya-btn');
-btn.style.transform = 'scale(0.95)';
-setTimeout(() => btn.style.transform = 'scale(1)', 100);
+function showCountdown() {
+    switchPhase('countdown');
+    updateOverallStats();
 }
 
-// Proud Text Functions
-function loadProudText() {
-const saved = localStorage.getItem('proudText_' + currentWeek);
-if(saved) document.getElementById('proudInput').value = saved;
+function checkAutoPhase() {
+    const today = new Date();
+    const phase2Start = new Date('2026-05-28');
+    const phase3Start = new Date('2026-06-14');
+    
+    let autoPhase = 1;
+    if (today >= phase3Start) {
+        autoPhase = 3;
+    } else if (today >= phase2Start) {
+        autoPhase = 2;
+    }
+    
+    // Check if user wants to switch
+    if (autoPhase !== currentPhase) {
+        showPhaseAlert(autoPhase);
+    }
+    
+    return autoPhase;
 }
 
-function saveProudText() {
-const text = document.getElementById('proudInput').value;
-localStorage.setItem('proudText_' + currentWeek, text);
+let autoPhase = 1;
+
+function showPhaseAlert(phase) {
+    autoPhase = phase;
+    const alert = document.getElementById('phaseAlert');
+    alert.style.display = 'block';
+    alert.querySelector('span').textContent = `🎯 يمكنك الانتقال للمرحلة ${phase}!`;
 }
 
-// Motivation Banner
-function updateMotivationBanner() {
-document.getElementById('motivationBanner').textContent = weekQuotes[currentWeek] || weekQuotes[weekQuotes.length - 1];
+function hidePhaseAlert() {
+    document.getElementById('phaseAlert').style.display = 'none';
 }
 
-// Day Counter
-function updateDayCounter() {
-document.getElementById('dayNumber').textContent = currentDay;
+function updatePhaseInfo(phase) {
+    const phaseNames = {
+        1: "المرحلة 1 - المذاكرة والمراجعة العامة",
+        2: "المرحلة 2 - الفيزياء الحديثة والكيمياء العضوية",
+        3: "المرحلة 3 - المراجعة النهائية"
+    };
+    
+    const weekNum = currentWeek[phase] + 1;
+    document.getElementById('currentPhaseText').textContent = `📍 أنت الآن في: ${phaseNames[phase]} - الأسبوع ${weekNum}`;
+    
+    // Calculate days to next phase
+    const today = new Date();
+    let nextPhaseDate;
+    if (phase === 1) nextPhaseDate = new Date('2026-05-28');
+    else if (phase === 2) nextPhaseDate = new Date('2026-06-14');
+    else nextPhaseDate = new Date('2026-07-02');
+    
+    const daysLeft = Math.ceil((nextPhaseDate - today) / (1000 * 60 * 60 * 24));
+    
+    if (daysLeft > 0 && phase < 3) {
+        document.getElementById('nextPhaseCountdown').textContent = `⏳ المتبقي: ${daysLeft} يوم على المرحلة ${phase + 1}`;
+    } else if (phase === 3) {
+        document.getElementById('nextPhaseCountdown').textContent = `⏳ الامتحان قريب! استعد!`;
+    } else {
+        document.getElementById('nextPhaseCountdown').textContent = `🎯 المرحلة التالية متاحة الآن`;
+    }
 }
 
-function handleDayEnd() {
-const quote = dayQuotes[Math.floor(Math.random() * dayQuotes.length)];
-showToast(quote);
+// ==========================================
+// RENDER FUNCTIONS
+// ==========================================
 
-if(currentDay % 7 === 0 && currentDay < 38) {
-setTimeout(() => {
-showCelebration('🎉', 'أحسنت! أكملت أسبوعاً بنجاح!', 'استمر في التقدم!');
-}, 1000);
+function initPhase(phase) {
+    renderWeek(phase);
+    updateProgress(phase);
+    updateDayCounter(phase);
+    updateMotivationBanner(phase);
 }
 
-if(currentDay === 38) {
-setTimeout(() => {
-showCelebration('🏆', 'مبروك! أكملت الـ38 يوم!', 'أنت بطل! استعد للامتحان!');
-}, 1000);
+function renderWeek(phase) {
+    const weekData = getPhaseData(phase)[currentWeek[phase]];
+    if (!weekData) return;
+    
+    document.getElementById(`weekTitle${phase}`).textContent = weekData.title;
+    
+    // Render schedule table
+    const scheduleBody = document.getElementById(`scheduleBody${phase}`);
+    scheduleBody.innerHTML = weekData.schedule.map((item, index) => {
+        let subjectClass = item.type === 'phys' ? 'subject-phys' : (item.type === 'chem' ? 'subject-chem' : '');
+        let chapterBadge = '';
+        let reviewBadge = '';
+        
+        if (item.lastInChapter && item.chapterMessage) {
+            chapterBadge = `<div style="font-size:0.7rem;color:var(--ag);margin-top:3px;">${item.chapterMessage}</div>`;
+        }
+        if (item.isReview) {
+            reviewBadge = `<div style="font-size:0.7rem;color:#FF6B6B;margin-top:3px;">📎 ${item.reviewLabel || 'مراجعة'}</div>`;
+        }
+        if (item.lastInPhase && item.phaseMessage) {
+            chapterBadge = `<div style="font-size:0.7rem;color:var(--ag);margin-top:3px;">${item.phaseMessage}</div>`;
+        }
+        
+        let lessonText = item.lesson;
+        if (phase === 2 && item.topic) lessonText = item.topic;
+        if (phase === 3 && item.tasks) lessonText = item.tasks.join(' + ');
+        
+        return `<tr>
+            <td style="font-weight:700;color:var(--pb);">${item.day}</td>
+            <td>${item.date}</td>
+            <td class="${subjectClass}">${item.subject}${chapterBadge}${reviewBadge}</td>
+            <td>${lessonText}</td>
+        </tr>`;
+    }).join('');
+    
+    // Render tasks
+    renderTasks(phase, weekData);
 }
 
-currentDay++;
-localStorage.setItem('currentDay', currentDay);
-updateDayCounter();
+function renderTasks(phase, weekData) {
+    const container = document.getElementById(`tasksContainer${phase}`);
+    
+    let tasksHTML = '';
+    weekData.schedule.forEach((day, dayIndex) => {
+        const dayKey = `phase${phase}_week${currentWeek[phase]}_day${dayIndex}`;
+        
+        // Determine tasks based on subject and phase
+        let baseTasks = [];
+        if (day.type === 'chem') baseTasks = [...chemTasks];
+        else if (day.type === 'phys') baseTasks = [...physTasks];
+        
+        // Phase 3 has custom tasks
+        if (phase === 3 && day.tasks) {
+            baseTasks = day.tasks.map((task, idx) => ({
+                id: `task_${idx}`,
+                label: task,
+                icon: idx === 0 ? 'fa-headphones' : (idx === day.tasks.length - 1 ? 'fa-graduation-cap' : 'fa-book')
+            }));
+        }
+        
+        // Add integrated review tasks for Phase 1
+        let reviewTasks = [];
+        if (phase === 1 && day.isReview && day.reviewChapter) {
+            const reviewList = day.type === 'chem' ? chemReviewTasks[day.reviewChapter] : physReviewTasks[day.reviewChapter];
+            if (reviewList && day.reviewDay && reviewList[day.reviewDay - 1]) {
+                reviewTasks = [reviewList[day.reviewDay - 1]];
+            }
+        }
+        
+        // Build task HTML
+        let tasksContent = baseTasks.map(task => {
+            const taskKey = `${dayKey}_${task.id}`;
+            const isCompleted = completedTasks[phase][taskKey];
+            return `<div class="task-item ${isCompleted ? 'completed' : ''}" onclick="toggleTask(${phase}, '${taskKey}', this)">
+                <div class="checkbox">${isCompleted ? '<i class="fas fa-check"></i>' : ''}</div>
+                <div class="task-icon"><i class="fas ${task.icon}"></i></div>
+                <div class="task-label">${task.label}</div>
+            </div>`;
+        }).join('');
+        
+        // Add review tasks
+        let reviewContent = '';
+        if (reviewTasks.length > 0) {
+            reviewContent = `<div class="review-divider"></div><div class="review-label">📚 ${day.reviewLabel || 'مراجعة'}</div>`;
+            reviewContent += reviewTasks.map(task => {
+                const taskKey = `${dayKey}_rev_${task.id}`;
+                const isCompleted = completedTasks[phase][taskKey];
+                return `<div class="task-item review-additional ${isCompleted ? 'completed' : ''}" onclick="toggleTask(${phase}, '${taskKey}', this)">
+                    <div class="checkbox">${isCompleted ? '<i class="fas fa-check"></i>' : ''}</div>
+                    <div class="task-icon"><i class="fas ${task.icon}"></i></div>
+                    <div class="task-label">${task.label}</div>
+                </div>`;
+            }).join('');
+        }
+        
+        // Day header badges
+        let extraBadge = '';
+        if (day.isReview) {
+            extraBadge = `<span class="review-badge"><i class="fas fa-plus-circle"></i> مراجعة</span>`;
+        } else if (day.lastInChapter || day.lastInPhase) {
+            extraBadge = `<span style="background:var(--ag);color:white;padding:.2rem .5rem;border-radius:10px;font-size:.7rem;margin-right:.5rem;">🏆 إنجاز</span>`;
+        }
+        
+        const dayClass = day.isReview ? 'review-day' : '';
+        const expanded = dayIndex === 0 ? 'expanded' : '';
+        const rotated = dayIndex === 0 ? 'rotated' : '';
+        
+        tasksHTML += `<div class="day-task ${dayClass}">
+            <div class="day-header" onclick="toggleDay(this)">
+                <div style="display:flex;align-items:center;gap:1rem;">
+                    <span class="day-label">${day.subject}</span>
+                    ${extraBadge}
+                    <span style="color:var(--lb);font-size:.8rem;">${day.date}</span>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon ${rotated}"></i>
+            </div>
+            <div class="task-grid ${expanded}">${tasksContent}${reviewContent}</div>
+            ${(day.lastInChapter && day.chapterMessage) ? `<div class="chapter-complete">${day.chapterMessage}</div>` : ''}
+            ${(day.lastInPhase && day.phaseMessage) ? `<div class="chapter-complete">${day.phaseMessage}</div>` : ''}
+        </div>`;
+    });
+    
+    container.innerHTML = tasksHTML;
 }
 
-function showCelebration(icon, title, text) {
-document.getElementById('celebrationIcon').textContent = icon;
-document.getElementById('celebrationTitle').textContent = title;
-document.getElementById('celebrationText').textContent = text;
-document.getElementById('celebrationModal').classList.add('show');
+function getPhaseData(phase) {
+    if (phase === 1) return phase1Data;
+    if (phase === 2) return phase2Data;
+    if (phase === 3) return phase3Data;
+    return [];
 }
 
-function closeCelebration() {
-document.getElementById('celebrationModal').classList.remove('show');
-}
-
-// Week Navigation
-function changeWeek(d) {
-currentWeek += d;
-if(currentWeek < 0) currentWeek = weeksData.length - 1;
-if(currentWeek >= weeksData.length) currentWeek = 0;
-renderWeek();
-updateProgress();
-loadProudText();
-updateMotivationBanner();
-}
-
-// Render Week
-function renderWeek() {
-const w = weeksData[currentWeek];
-document.getElementById('weekTitle').textContent = w.title;
-
-// Schedule Table
-document.getElementById('scheduleBody').innerHTML = w.schedule.map((item) => {
-let sc = item.type === 'phys' ? 'subject-phys' : 'subject-chem';
-const chapterBadge = item.lastInChapter ? `<div style="font-size:0.7rem;color:var(--ag);margin-top:3px;">${item.chapterMessage}</div>` : '';
-const reviewBadge = item.hasReview ? `<div style="font-size:0.7rem;color:#FF6B6B;margin-top:3px;">📎 ${item.reviewLabel}</div>` : '';
-return `<tr>
-<td style="font-weight:700;color:var(--pb);">${item['day']}</td>
-<td>${item['date']}</td>
-<td class="${sc}">${item['subject']}${chapterBadge}${reviewBadge}</td>
-<td>${item['lesson']}</td>
-</tr>`;
-}).join('');
-
-// Tasks
-let tasksHTML = '';
-w.schedule.forEach((day, di) => {
-const dk = `week${currentWeek}_day${di}`;
-let taskTypes = day.type === 'phys' ? physTasks : chemTasks;
-let hasReview = day.hasReview || false;
-let reviewTasks = [];
-
-if(hasReview) {
-const revChapter = day.reviewChapter;
-if(day.reviewType === 'chem') {
-reviewTasks = chemReviewTasks[revChapter] || [];
-} else {
-reviewTasks = physReviewTasks[revChapter] || [];
-}
-}
-
-// Regular tasks
-let tasksContent = taskTypes.map(task => {
-const tk = `${dk}_${task.id}`;
-const ic = completedTasks[tk];
-return `<div class="task-item ${ic ? 'completed' : ''}" onclick="toggleTask('${tk}', this)">
-<div class="checkbox">${ic ? '<i class="fas fa-check"></i>' : ''}</div>
-<div class="task-icon"><i class="fas ${task.icon}"></i></div>
-<div class="task-label">${task.label}</div>
-</div>`;
-}).join('');
-
-// Review tasks (additional)
-let reviewContent = '';
-if(hasReview && reviewTasks.length > 0) {
-reviewContent = `<div class="review-divider"></div><div class="review-label">📚 ${day.reviewLabel} (إضافي)</div>`;
-reviewContent += reviewTasks.map(task => {
-const tk = `${dk}_rev_${task.id}`;
-const ic = completedTasks[tk];
-return `<div class="task-item review-additional ${ic ? 'completed' : ''}" onclick="toggleTask('${tk}', this)">
-<div class="checkbox">${ic ? '<i class="fas fa-check"></i>' : ''}</div>
-<div class="task-icon"><i class="fas ${task.icon}"></i></div>
-<div class="task-label">${task.label}</div>
-</div>`;
-}).join('');
-}
-
-const dayLabel = day.type === 'phys' ? 'فيزياء' : 'كيمياء';
-const expanded = di === 0 ? 'expanded' : '';
-const rotated = di === 0 ? 'rotated' : '';
-let extraBadge = '';
-
-if(hasReview) {
-extraBadge = `<span class="review-badge"><i class="fas fa-plus-circle"></i> يوم مراجعة</span>`;
-} else if(day.lastInChapter) {
-extraBadge = `<span style="background:var(--ag);color:white;padding:.2rem .5rem;border-radius:10px;font-size:.7rem;margin-right:.5rem;">🏆 إنجاز</span>`;
-}
-
-const dayClass = hasReview ? 'review-day' : '';
-
-tasksHTML += `<div class="day-task ${dayClass}">
-<div class="day-header" onclick="toggleDay(this)">
-<div style="display:flex;align-items:center;gap:1rem;">
-<span class="day-label">${dayLabel}</span>
-${extraBadge}
-<span style="color:var(--lb);font-size:.8rem;">${day.date}</span>
-</div>
-<i class="fas fa-chevron-down toggle-icon ${rotated}"></i>
-</div>
-<div class="task-grid ${expanded}">${tasksContent}${reviewContent}</div>
-${day.lastInChapter ? `<div class="chapter-complete">${day.chapterMessage}</div>` : ''}
-</div>`;
-});
-
-document.getElementById('tasksContainer').innerHTML = tasksHTML;
+function changeWeek(phase, direction) {
+    const data = getPhaseData(phase);
+    currentWeek[phase] += direction;
+    
+    if (currentWeek[phase] < 0) currentWeek[phase] = data.length - 1;
+    if (currentWeek[phase] >= data.length) currentWeek[phase] = 0;
+    
+    renderWeek(phase);
+    updateProgress(phase);
+    updateMotivationBanner(phase);
+    
+    // Save
+    localStorage.setItem(`currentWeek_${phase}`, currentWeek[phase]);
 }
 
 function toggleDay(header) {
-const grid = header.nextElementSibling;
-const icon = header.querySelector('.toggle-icon');
-grid.classList.toggle('expanded');
-icon.classList.toggle('rotated');
+    const grid = header.nextElementSibling;
+    const icon = header.querySelector('.toggle-icon');
+    grid.classList.toggle('expanded');
+    icon.classList.toggle('rotated');
 }
 
-function toggleTask(tk, el) {
-el.classList.toggle('completed');
-const cb = el.querySelector('.checkbox');
-if(el.classList.contains('completed')) {
-completedTasks[tk] = true;
-cb.innerHTML = '<i class="fas fa-check"></i>';
-} else {
-delete completedTasks[tk];
-cb.innerHTML = '';
-}
-localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-updateProgress();
+function toggleTask(phase, taskKey, element) {
+    element.classList.toggle('completed');
+    const checkbox = element.querySelector('.checkbox');
+    
+    if (element.classList.contains('completed')) {
+        completedTasks[phase][taskKey] = true;
+        checkbox.innerHTML = '<i class="fas fa-check"></i>';
+    } else {
+        delete completedTasks[phase][taskKey];
+        checkbox.innerHTML = '';
+    }
+    
+    // Save
+    localStorage.setItem(`completedTasks_${phase}`, JSON.stringify(completedTasks[phase]));
+    
+    // Update progress
+    updateProgress(phase);
+    
+    // Update chart
+    updateChartData(phase);
 }
 
-function updateProgress() {
-const total = document.querySelectorAll('.task-item').length;
-const completed = document.querySelectorAll('.task-item.completed').length;
-const percent = total > 0 ? Math.round((completed/total)*100) : 0;
-document.getElementById('progressPercent').textContent = percent + '%';
-document.getElementById('progressFill').style.width = percent + '%';
-document.getElementById('progressFill').textContent = percent > 10 ? percent + '%' : '';
+// ==========================================
+// PROGRESS & STATS
+// ==========================================
+
+function updateProgress(phase) {
+    const totalTasks = document.querySelectorAll(`#phase${phase} .task-item`).length;
+    const completed = document.querySelectorAll(`#phase${phase} .task-item.completed`).length;
+    const percent = totalTasks > 0 ? Math.round((completed / totalTasks) * 100) : 0;
+    
+    document.getElementById(`progressPercent${phase}`).textContent = percent + '%';
+    document.getElementById(`progressFill${phase}`).style.width = percent + '%';
+    document.getElementById(`progressFill${phase}`).textContent = percent > 10 ? percent + '%' : '';
 }
 
-function showToast(msg) {
-const t = document.getElementById('toast');
-t.textContent = msg;
-t.classList.add('show');
-setTimeout(() => t.classList.remove('show'), 3000);
+function updateDayCounter(phase) {
+    document.getElementById(`dayNumber${phase}`).textContent = currentDay[phase];
 }
+
+function handleDayEnd(phase) {
+    const quote = dayQuotes[Math.floor(Math.random() * dayQuotes.length)];
+    showToast(quote);
+    
+    // Check if week ended
+    const weekData = getPhaseData(phase)[currentWeek[phase]];
+    if (currentDay[phase] % 7 === 0 && currentWeek[phase] < getPhaseData(phase).length - 1) {
+        setTimeout(() => {
+            showCelebration('🎉', 'أكملت أسبوعاً بنجاح!', 'استمر في التقدم!');
+        }, 1000);
+    }
+    
+    // Check if phase ended
+    if (currentWeek[phase] === getPhaseData(phase).length - 1 && 
+        currentDay[phase] >= weekData.schedule.length) {
+        setTimeout(() => {
+            showCelebration('🏆', `أكملت المرحلة ${phase}!`, 'انتقل للمرحلة التالية!');
+        }, 1000);
+    }
+    
+    currentDay[phase]++;
+    localStorage.setItem(`currentDay_${phase}`, currentDay[phase]);
+    updateDayCounter(phase);
+}
+
+function updateMotivationBanner(phase) {
+    const banner = document.getElementById(`motivationBanner${phase}`);
+    const weekNum = currentWeek[phase];
+    if (banner && weekQuotes[weekNum]) {
+        banner.textContent = weekQuotes[weekNum];
+    }
+}
+
+// ==========================================
+// CHARTS
+// ==========================================
+
+function initCharts() {
+    [1, 2, 3].forEach(phase => {
+        const ctx = document.getElementById(`progressChart${phase}`);
+        if (!ctx) return;
+        
+        charts[phase] = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الأسبوع 4'],
+                datasets: [{
+                    label: 'نسبة الإنجاز',
+                    data: [0, 0, 0, 0],
+                    borderColor: phase === 1 ? '#2196F3' : (phase === 2 ? '#4CAF50' : '#FFD700'),
+                    backgroundColor: phase === 1 ? 'rgba(33,150,243,0.1)' : (phase === 2 ? 'rgba(76,175,80,0.1)' : 'rgba(255,215,0,0.1)'),
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+    });
+}
+
+function updateChart(phase) {
+    if (!charts[phase]) return;
+    updateChartData(phase);
+}
+
+function updateChartData(phase) {
+    if (!charts[phase]) return;
+    
+    // Calculate progress per week
+    const data = getPhaseData(phase);
+    const weeklyProgress = data.map((week, weekIndex) => {
+        let weekTasks = 0;
+        let weekCompleted = 0;
+        
+        week.schedule.forEach((day, dayIndex) => {
+            const dayKey = `phase${phase}_week${weekIndex}_day${dayIndex}`;
+            // Count tasks for this day
+            const dayTasks = document.querySelectorAll(`[onclick*="'${dayKey}_"]`);
+            weekTasks += dayTasks.length;
+            
+            dayTasks.forEach(task => {
+                if (task.classList.contains('completed')) {
+                    weekCompleted++;
+                }
+            });
+        });
+        
+        return weekTasks > 0 ? Math.round((weekCompleted / weekTasks) * 100) : 0;
+    });
+    
+    charts[phase].data.datasets[0].data = weeklyProgress;
+    charts[phase].update();
+}
+// ==========================================
+// COUNTDOWN
+// ==========================================
+
+function updateCountdown() {
+    const today = new Date();
+    const chemExam = new Date('2026-07-02T09:00:00');
+    const physExam = new Date('2026-07-09T09:00:00');
+    
+    const chemDiff = chemExam - today;
+    const physDiff = physExam - today;
+    
+    const chemDays = Math.ceil(chemDiff / (1000 * 60 * 60 * 24));
+    const physDays = Math.ceil(physDiff / (1000 * 60 * 60 * 24));
+    
+    document.getElementById('chemDays').textContent = chemDays > 0 ? chemDays : 0;
+    document.getElementById('physDays').textContent = physDays > 0 ? physDays : 0;
+}
+
+function updateOverallStats() {
+    let totalTasks = 0;
+    let totalCompleted = 0;
+    let studyDays = 0;
+    
+    [1, 2, 3].forEach(phase => {
+        const tasks = Object.keys(completedTasks[phase]).length;
+        const completed = Object.values(completedTasks[phase]).filter(v => v).length;
+        totalTasks += tasks;
+        totalCompleted += completed;
+        studyDays += currentDay[phase] - 1;
+    });
+    
+    document.getElementById('totalTasks').textContent = totalTasks;
+    document.getElementById('completedTasks').textContent = totalCompleted;
+    document.getElementById('totalProgress').textContent = totalTasks > 0 ? Math.round((totalCompleted / totalTasks) * 100) + '%' : '0%';
+    document.getElementById('studyDays').textContent = studyDays;
+}
+
+// ==========================================
+// NIYA (INTENTION)
+// ==========================================
+
+function renewNiya() {
+    niyaCount++;
+    localStorage.setItem('niyaCount', niyaCount);
+    document.getElementById('niyaCounter').textContent = niyaCount;
+    showToast('✨ اللهم إني نويت المذاكرة لوجهك الكريم! بارك الله فيك');
+    
+    const btn = document.querySelector('.niya-btn');
+    btn.style.transform = 'scale(0.95)';
+    setTimeout(() => btn.style.transform = 'scale(1)', 100);
+}
+
+// ==========================================
+// PROUD TEXT
+// ==========================================
+
+function saveProudText() {
+    const text = document.getElementById('proudInput').value;
+    localStorage.setItem(`proudText_${currentPhase}_${currentWeek[currentPhase]}`, text);
+}
+
+function loadProudText() {
+    const text = localStorage.getItem(`proudText_${currentPhase}_${currentWeek[currentPhase]}`) || '';
+    document.getElementById('proudInput').value = text;
+}
+
+// ==========================================
+// REPORTS
+// ==========================================
+
+function showReport() {
+    const modal = document.getElementById('reportModal');
+    const content = document.getElementById('reportContent');
+    
+    // Generate report
+    let reportHTML = '<div class="stats-grid">';
+    
+    [1, 2, 3].forEach(phase => {
+        const tasks = Object.keys(completedTasks[phase]).length;
+        const completed = Object.values(completedTasks[phase]).filter(v => v).length;
+        const percent = tasks > 0 ? Math.round((completed / tasks) * 100) : 0;
+        
+        reportHTML += `
+            <div class="stat-box">
+                <div class="stat-number">${percent}%</div>
+                <div class="stat-label">إنجاز المرحلة ${phase}</div>
+            </div>
+        `;
+    });
+    
+    reportHTML += '</div>';
+    
+    // Weekly breakdown
+    reportHTML += '<h3 style="margin-top:1rem;color:var(--pb);">الإنجازات الأسبوعية:</h3><ul style="text-align:right;">';
+    
+    [1, 2, 3].forEach(phase => {
+        const data = getPhaseData(phase);
+        data.forEach((week, idx) => {
+            const weekKey = `phase${phase}_week${idx}`;
+            const weekTasks = Object.keys(completedTasks[phase]).filter(k => k.startsWith(weekKey)).length;
+            const weekCompleted = Object.entries(completedTasks[phase]).filter(([k, v]) => k.startsWith(weekKey) && v).length;
+            const weekPercent = weekTasks > 0 ? Math.round((weekCompleted / weekTasks) * 100) : 0;
+            
+            reportHTML += `<li>${week.title}: ${weekPercent}%</li>`;
+        });
+    });
+    
+    reportHTML += '</ul>';
+    
+    content.innerHTML = reportHTML;
+    modal.classList.add('show');
+}
+
+function closeReport() {
+    document.getElementById('reportModal').classList.remove('show');
+}
+
+// ==========================================
+// EXPORT/IMPORT
+// ==========================================
+
+function exportData() {
+    const data = {
+        completedTasks: completedTasks,
+        currentDay: currentDay,
+        currentWeek: currentWeek,
+        niyaCount: niyaCount,
+        proudTexts: {},
+        exportDate: new Date().toISOString()
+    };
+    
+    // Collect all proud texts
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('proudText_')) {
+            data.proudTexts[key] = localStorage.getItem(key);
+        }
+    }
+    
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `alremontada_backup_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    showToast('✅ تم تصدير البيانات بنجاح!');
+}
+
+function importData(input) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            
+            // Restore data
+            if (data.completedTasks) {
+                completedTasks = data.completedTasks;
+                [1, 2, 3].forEach(phase => {
+                    localStorage.setItem(`completedTasks_${phase}`, JSON.stringify(completedTasks[phase]));
+                });
+            }
+            
+            if (data.currentDay) {
+                currentDay = data.currentDay;
+                [1, 2, 3].forEach(phase => {
+                    localStorage.setItem(`currentDay_${phase}`, currentDay[phase]);
+                });
+            }
+            
+            if (data.currentWeek) {
+                currentWeek = data.currentWeek;
+                [1, 2, 3].forEach(phase => {
+                    localStorage.setItem(`currentWeek_${phase}`, currentWeek[phase]);
+                });
+            }
+            
+            if (data.niyaCount) {
+                niyaCount = data.niyaCount;
+                localStorage.setItem('niyaCount', niyaCount);
+            }
+            
+            if (data.proudTexts) {
+                Object.entries(data.proudTexts).forEach(([key, value]) => {
+                    localStorage.setItem(key, value);
+                });
+            }
+            
+            // Refresh display
+            [1, 2, 3].forEach(phase => {
+                initPhase(phase);
+            });
+            document.getElementById('niyaCounter').textContent = niyaCount;
+            
+            showToast('✅ تم استيراد البيانات بنجاح!');
+            closeReport();
+            
+        } catch (err) {
+            showToast('❌ خطأ في قراءة الملف!');
+        }
+    };
+    reader.readAsText(file);
+}
+
+// ==========================================
+// STORAGE
+// ==========================================
+
+function loadAllData() {
+    // Load completed tasks
+    [1, 2, 3].forEach(phase => {
+        const saved = localStorage.getItem(`completedTasks_${phase}`);
+        if (saved) {
+            completedTasks[phase] = JSON.parse(saved);
+        }
+        
+        const savedDay = localStorage.getItem(`currentDay_${phase}`);
+        if (savedDay) {
+            currentDay[phase] = parseInt(savedDay);
+        }
+        
+        const savedWeek = localStorage.getItem(`currentWeek_${phase}`);
+        if (savedWeek) {
+            currentWeek[phase] = parseInt(savedWeek);
+        }
+    });
+    
+    // Load niya count
+    const savedNiya = localStorage.getItem('niyaCount');
+    if (savedNiya) {
+        niyaCount = parseInt(savedNiya);
+        document.getElementById('niyaCounter').textContent = niyaCount;
+    }
+    
+    // Load current phase
+    const savedPhase = localStorage.getItem('currentPhase');
+    if (savedPhase) {
+        currentPhase = parseInt(savedPhase);
+    }
+}
+
+// ==========================================
+// UI UTILITIES
+// ==========================================
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+function showCelebration(icon, title, text) {
+    document.getElementById('celebrationIcon').textContent = icon;
+    document.getElementById('celebrationTitle').textContent = title;
+    document.getElementById('celebrationText').textContent = text;
+    document.getElementById('celebrationModal').classList.add('show');
+}
+
+function closeCelebration() {
+    document.getElementById('celebrationModal').classList.remove('show');
+}
+
+// Close modal on outside click
+window.onclick = function(event) {
+    const modal = document.getElementById('reportModal');
+    if (event.target === modal) {
+        closeReport();
+    }
+    const celebration = document.getElementById('celebrationModal');
+    if (event.target === celebration) {
+        closeCelebration();
+    }
+}
+
+// ==========================================
+// KEYBOARD SHORTCUTS
+// ==========================================
+
+document.addEventListener('keydown', function(e) {
+    // Ctrl + Shift + 1/2/3 to switch phases
+    if (e.ctrlKey && e.shiftKey) {
+        if (e.key === '1') switchPhase(1);
+        if (e.key === '2') switchPhase(2);
+        if (e.key === '3') switchPhase(3);
+    }
+    
+    // Escape to close modals
+    if (e.key === 'Escape') {
+        closeReport();
+        closeCelebration();
+    }
+});
+
+// ==========================================
+// INITIALIZATION COMPLETE
+// ==========================================
+
+console.log('🚀 الريمونتادا - نظام المذاكرة المتكامل');
+console.log('📚 المرحلة 1: المذاكرة والمراجعة العامة');
+console.log('⚡ المرحلة 2: الفيزياء الحديثة والكيمياء العضوية');
+console.log('🎯 المرحلة 3: المراجعة النهائية');
+console.log('✨ بالتوفيق في الامتحان!');
 </script>
 </body>
 </html>
